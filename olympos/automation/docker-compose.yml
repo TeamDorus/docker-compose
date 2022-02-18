@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+    - /opt/docker/mosquitto:/mosquitto/config
+
+
+  nodered:
+    container_name: nodered
+    image: nodered/node-red
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+    - /opt/docker/nodered:/data
+
+
