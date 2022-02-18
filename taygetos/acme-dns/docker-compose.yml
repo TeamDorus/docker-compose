@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+
+  acme-dns:
+    container_name: acme-dns
+    image: joohoi/acme-dns
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+    - /opt/docker/acme-dns/config:/etc/acme-dns
+    - /opt/docker/acme-dns/data:/var/lib/acme-dns
+
+  telegraf:
+    container_name: telegraf
+    image: telegraf:1.17.2
+    restart: unless-stopped
+    volumes:
+    - /opt/docker/telegraf:/etc/telegraf:ro
+    - /:/hostfs:ro
+    environment:
+    - HOST_ETC=/hostfs/etc
+    - HOST_PROC=/hostfs/proc
+    - HOST_SYS=/hostfs/sys
+    - HOST_VAR=/hostfs/var
+    - HOST_RUN=/hostfs/run
+    - HOST_MOUNT_PREFIX=/hostfs
+
+
+
